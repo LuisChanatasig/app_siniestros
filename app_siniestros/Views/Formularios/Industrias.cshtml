@@ -1,0 +1,1922 @@
+﻿@{
+    var basePath = Url.Content("~/");
+}
+
+<form id="wizardForm" method="post" action="@Url.Action("GuardarFormulario", "Siniestros")">
+    <div class="card">
+        <div class="card-header bg-soft-primary py-3 d-flex justify-content-between align-items-center">
+            <div id="stepIndicator" class="h5 mb-0">Paso <span id="currentStepNum">1</span> de 8</div>
+        </div>
+
+        <div class="card-body">
+            <div class="tab-content" id="wizardContent">
+                <div class="tab-pane fade show active" id="step-1" role="tabpanel">
+                    <h5 class="mb-4">Datos Generales</h5>
+                    <div class="row g-3">
+                        <!-- Nombre del Propietario -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="propietario" class="form-label">Nombre del Propietario</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="mdi mdi-account text-secondary"></i>
+                                    </span>
+                                    <input type="text"
+                                           class="form-control border-start-0"
+                                           id="propietario"
+                                           name="Propietario"
+                                           placeholder="Ej. Juan Pérez"
+                                           required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Propietario o Representante Legal -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="representante" class="form-label">Propietario o Representante Legal</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="mdi mdi-account-supervisor-circle-outline text-secondary"></i>
+                                    </span>
+                                    <input type="text"
+                                           class="form-control border-start-0"
+                                           id="representante"
+                                           name="RepresentanteLegal"
+                                           placeholder="Ej. Nombre Apellido"
+                                           required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Calle Principal -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="callePrincipal" class="form-label">Calle Principal</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="mdi mdi-road text-secondary"></i>
+                                    </span>
+                                    <input type="text"
+                                           class="form-control border-start-0"
+                                           id="callePrincipal"
+                                           name="CallePrincipal"
+                                           placeholder="Ej. Av. Amazonas"
+                                           required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Calle Secundaria -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="calleSecundaria" class="form-label">Calle Secundaria</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="mdi mdi-road-variant text-secondary"></i>
+                                    </span>
+                                    <input type="text"
+                                           class="form-control border-start-0"
+                                           id="calleSecundaria"
+                                           name="CalleSecundaria"
+                                           placeholder="Ej. Pasaje Los Álamos"
+                                           required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Número -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="numero" class="form-label">Número</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="mdi mdi-numeric text-secondary"></i>
+                                    </span>
+                                    <input type="text"
+                                           class="form-control border-start-0"
+                                           id="numero"
+                                           name="Numero"
+                                           placeholder="Ej. 1234"
+                                           required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Número de piso -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="piso" class="form-label">Número de piso</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="mdi mdi-office-building text-secondary"></i>
+                                    </span>
+                                    <input type="text"
+                                           class="form-control border-start-0"
+                                           id="piso"
+                                           name="NumeroPiso"
+                                           placeholder="Ej. 3"
+                                           required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Coordenadas -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="coordenadas" class="form-label">Coordenadas</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="mdi mdi-map-marker text-secondary"></i>
+                                    </span>
+                                    <input type="text"
+                                           class="form-control border-start-0"
+                                           id="coordenadas"
+                                           name="Coordenadas"
+                                           placeholder="Ej. -0.180653, -78.467834"
+                                           required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Área Total Terreno -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="areaTotalTerreno" class="form-label">Área Total Terreno (m²)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="mdi mdi-ruler-square text-secondary"></i>
+                                    </span>
+                                    <input type="number"
+                                           step="0.01"
+                                           class="form-control border-start-0"
+                                           id="areaTotalTerreno"
+                                           name="AreaTotalTerreno"
+                                           placeholder="Ej. 150.00"
+                                           required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Área Total Construida -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="areaTotalConstruida" class="form-label">Área Total Construida (m²)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="mdi mdi-ruler-square text-secondary"></i>
+                                    </span>
+                                    <input type="number"
+                                           step="0.01"
+                                           class="form-control border-start-0"
+                                           id="areaTotalConstruida"
+                                           name="AreaTotalConstruida"
+                                           placeholder="Ej. 120.50"
+                                           required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Año de Construcción -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="anoConstruccion" class="form-label">Año de Construcción</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="mdi mdi-calendar text-secondary"></i>
+                                    </span>
+                                    <input type="number"
+                                           class="form-control border-start-0"
+                                           id="anoConstruccion"
+                                           name="AnoConstruccion"
+                                           placeholder="Ej. 2005"
+                                           min="1800"
+                                           max="2025"
+                                           step="1"
+                                           required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Porcentaje Ocupación -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="porcentajeOcupacion" class="form-label">Porcentaje Ocupación (%)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="mdi mdi-percent text-secondary"></i>
+                                    </span>
+                                    <input type="number"
+                                           class="form-control border-start-0"
+                                           id="porcentajeOcupacion"
+                                           name="PorcentajeOcupacion"
+                                           placeholder="Ej. 75.00"
+                                           min="0"
+                                           max="100"
+                                           step="0.01"
+                                           required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fecha de Inspección -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="fechaInspeccion" class="form-label">Fecha de Inspección</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="mdi mdi-calendar-check text-secondary"></i>
+                                    </span>
+                                    <input type="date"
+                                           class="form-control border-start-0"
+                                           id="fechaInspeccion"
+                                           name="FechaInspeccion"
+                                           required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tipo de Edificación (full width) -->
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label class="form-label">Tipo de Edificación</label>
+                                <div class="d-flex flex-wrap gap-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               name="TipoEdificacion"
+                                               id="tipoResidencial"
+                                               value="Residencial"
+                                               required />
+                                        <label class="form-check-label" for="tipoResidencial">
+                                            <i class="mdi mdi-home-outline me-1"></i> Residencial
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               name="TipoEdificacion"
+                                               id="tipoComercial"
+                                               value="Comercial" />
+                                        <label class="form-check-label" for="tipoComercial">
+                                            <i class="mdi mdi-storefront-outline me-1"></i> Comercial
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               name="TipoEdificacion"
+                                               id="tipoIndustrial"
+                                               value="Industrial" />
+                                        <label class="form-check-label" for="tipoIndustrial">
+                                            <i class="mdi mdi-factory-outline me-1"></i> Industrial
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               name="TipoEdificacion"
+                                               id="tipoInstitucional"
+                                               value="Institucional" />
+                                        <label class="form-check-label" for="tipoInstitucional">
+                                            <i class="mdi mdi-bank-outline me-1"></i> Institucional
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               name="TipoEdificacion"
+                                               id="tipoMixto"
+                                               value="Mixto" />
+                                        <label class="form-check-label" for="tipoMixto">
+                                            <i class="mdi mdi-domain-diversity me-1"></i> Mixto
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input"
+                                               type="radio"
+                                               name="TipoEdificacion"
+                                               id="tipoOtros"
+                                               value="Otros" />
+                                        <label class="form-check-label" for="tipoOtros">
+                                            <i class="mdi mdi-dots-horizontal me-1"></i> Otros
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="step-2" role="tabpanel">
+                    <h5 class="mb-4">Documentación Revisada</h5>
+                    <!-- Checklists de Documentos de Mantenimiento -->
+                    <div class="row g-3">
+                        <!-- Planos arquitectónicos y estructurales -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Planos arquitectónicos y estructurales</label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="PlanosArquitectonicos" id="planosSi" value="Sí" required />
+                                        <label class="form-check-label" for="planosSi">Sí</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="PlanosArquitectonicos" id="planosNo" value="No" />
+                                        <label class="form-check-label" for="planosNo">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Permisos de funcionamiento -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Permisos de funcionamiento</label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="PermisosFuncionamiento" id="permisosSi" value="Sí" required />
+                                        <label class="form-check-label" for="permisosSi">Sí</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="PermisosFuncionamiento" id="permisosNo" value="No" />
+                                        <label class="form-check-label" for="permisosNo">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Plan de emergencia y evacuación -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Plan de emergencia y evacuación</label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="PlanEmergencia" id="emergenciaSi" value="Sí" required />
+                                        <label class="form-check-label" for="emergenciaSi">Sí</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="PlanEmergencia" id="emergenciaNo" value="No" />
+                                        <label class="form-check-label" for="emergenciaNo">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Certificación de instalaciones eléctricas y gas -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Certificación de instalaciones eléctricas y gas</label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="CertificacionInstalaciones" id="certificacionSi" value="Sí" required />
+                                        <label class="form-check-label" for="certificacionSi">Sí</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="CertificacionInstalaciones" id="certificacionNo" value="No" />
+                                        <label class="form-check-label" for="certificacionNo">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mantenimiento Preventivo -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Mantenimiento Preventivo</label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="MantenimientoPreventivo" id="preventivoSi" value="Sí" required />
+                                        <label class="form-check-label" for="preventivoSi">Sí</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="MantenimientoPreventivo" id="preventivoNo" value="No" />
+                                        <label class="form-check-label" for="preventivoNo">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mantenimiento Correctivo -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Mantenimiento Correctivo</label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="MantenimientoCorrectivo" id="correctivoSi" value="Sí" required />
+                                        <label class="form-check-label" for="correctivoSi">Sí</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="MantenimientoCorrectivo" id="correctivoNo" value="No" />
+                                        <label class="form-check-label" for="correctivoNo">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Personal Interno Mantenimiento -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Personal Interno Mantenimiento</label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="PersonalInternoMantenimiento" id="internoSi" value="Sí" required />
+                                        <label class="form-check-label" for="internoSi">Sí</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="PersonalInternoMantenimiento" id="internoNo" value="No" />
+                                        <label class="form-check-label" for="internoNo">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Proveedor Externo Mantenimiento -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Proveedor Externo Mantenimiento</label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="ProveedorExternoMantenimiento" id="externoSi" value="Sí" required />
+                                        <label class="form-check-label" for="externoSi">Sí</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="ProveedorExternoMantenimiento" id="externoNo" value="No" />
+                                        <label class="form-check-label" for="externoNo">No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="step-3" role="tabpanel">
+                    <h5 class="mb-4">Inspección Física del Edificio</h5>
+                    <!-- 3.1 Estructura -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-soft-primary py-2">
+                            <h6 class="mb-0 d-flex align-items-center gap-2">
+                                <i class="mdi mdi-office-building-cog-outline"></i>
+                                3.1 Estructura
+                            </h6>
+                        </div>
+
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-sm align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Ítem Evaluado *</th>
+                                            <th style="width: 220px;">Estado *</th>
+                                            <th>Observaciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- 0: Columnas y vigas -->
+                                        <tr>
+                                            <td>
+                                                Columnas y vigas
+                                                <input type="hidden" name="Estructura[0].Item" value="Columnas y vigas" />
+                                            </td>
+                                            <td>
+                                                <select class="form-select" name="Estructura[0].Estado" required>
+                                                    <option value="" selected disabled>Seleccione…</option>
+                                                    <option value="Alto">Alto</option>
+                                                    <option value="Esperado">Esperado</option>
+                                                    <option value="Bajo">Bajo</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-estr-0" name="Estructura[0].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-estr-0" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 1: Muros de carga y cerramiento -->
+                                        <tr>
+                                            <td>
+                                                Muros de carga y cerramiento
+                                                <input type="hidden" name="Estructura[1].Item" value="Muros de carga y cerramiento" />
+                                            </td>
+                                            <td>
+                                                <select class="form-select" name="Estructura[1].Estado" required>
+                                                    <option value="" selected disabled>Seleccione…</option>
+                                                    <option value="Alto">Alto</option>
+                                                    <option value="Esperado">Esperado</option>
+                                                    <option value="Bajo">Bajo</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-estr-1" name="Estructura[1].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-estr-1" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 2: Cubiertas – losas - techos -->
+                                        <tr>
+                                            <td>
+                                                Cubiertas – losas - techos
+                                                <input type="hidden" name="Estructura[2].Item" value="Cubiertas – losas - techos" />
+                                            </td>
+                                            <td>
+                                                <select class="form-select" name="Estructura[2].Estado" required>
+                                                    <option value="" selected disabled>Seleccione…</option>
+                                                    <option value="Alto">Alto</option>
+                                                    <option value="Esperado">Esperado</option>
+                                                    <option value="Bajo">Bajo</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-estr-2" name="Estructura[2].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-estr-2" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 3: Grietas visibles -->
+                                        <tr>
+                                            <td>
+                                                Existen grietas visibles en muros, columnas o losas
+                                                <input type="hidden" name="Estructura[3].Item" value="Existen grietas visibles en muros, columnas o losas" />
+                                            </td>
+                                            <td>
+                                                <select class="form-select" name="Estructura[3].Estado" required>
+                                                    <option value="" selected disabled>Seleccione…</option>
+                                                    <option value="Alto">Alto</option>
+                                                    <option value="Esperado">Esperado</option>
+                                                    <option value="Bajo">Bajo</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-estr-3" name="Estructura[3].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-estr-3" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 4: Asentamientos o inclinaciones -->
+                                        <tr>
+                                            <td>
+                                                Se observan signos de asentamientos o inclinaciones
+                                                <input type="hidden" name="Estructura[4].Item" value="Se observan signos de asentamientos o inclinaciones" />
+                                            </td>
+                                            <td>
+                                                <select class="form-select" name="Estructura[4].Estado" required>
+                                                    <option value="" selected disabled>Seleccione…</option>
+                                                    <option value="Alto">Alto</option>
+                                                    <option value="Esperado">Esperado</option>
+                                                    <option value="Bajo">Bajo</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-estr-4" name="Estructura[4].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-estr-4" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3.2 Instalaciones -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-soft-primary py-2">
+                            <h6 class="mb-0 d-flex align-items-center gap-2">
+                                <i class="mdi mdi-tools"></i>
+                                3.2 Instalaciones
+                            </h6>
+                        </div>
+
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-sm align-middle mb-0 table-stacked">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Ítem Evaluado *</th>
+                                            <th style="width: 260px;">Estado *</th>
+                                            <th>Observaciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- 0: Sistema eléctrico -->
+                                        <tr>
+                                            <td>
+                                                Sistema eléctrico
+                                                <input type="hidden" name="Instalaciones[0].Item" value="Sistema eléctrico" />
+                                            </td>
+                                            <td data-label="Estado *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                           id="inst0Conforme" name="Instalaciones[0].Estado"
+                                                           value="Conforme" required />
+                                                    <label class="form-check-label" for="inst0Conforme">Conforme</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                           id="inst0NoConforme" name="Instalaciones[0].Estado"
+                                                           value="No conforme" />
+                                                    <label class="form-check-label" for="inst0NoConforme">No conforme</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-inst-0"
+                                                           name="Instalaciones[0].Observaciones"
+                                                           placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic"
+                                                            data-target="obs-inst-0" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 1: Sistema de Puesta a Tierra -->
+                                        <tr>
+                                            <td>
+                                                Sistema de Puesta a Tierra
+                                                <input type="hidden" name="Instalaciones[1].Item" value="Sistema de Puesta a Tierra" />
+                                            </td>
+                                            <td data-label="Estado *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                           id="inst1Conforme" name="Instalaciones[1].Estado"
+                                                           value="Conforme" required />
+                                                    <label class="form-check-label" for="inst1Conforme">Conforme</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                           id="inst1NoConforme" name="Instalaciones[1].Estado"
+                                                           value="No conforme" />
+                                                    <label class="form-check-label" for="inst1NoConforme">No conforme</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-inst-1"
+                                                           name="Instalaciones[1].Observaciones"
+                                                           placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic"
+                                                            data-target="obs-inst-1" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 2: Pararrayos -->
+                                        <tr>
+                                            <td>
+                                                Pararrayos
+                                                <input type="hidden" name="Instalaciones[2].Item" value="Pararrayos" />
+                                            </td>
+                                            <td data-label="Estado *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                           id="inst2Conforme" name="Instalaciones[2].Estado"
+                                                           value="Conforme" required />
+                                                    <label class="form-check-label" for="inst2Conforme">Conforme</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                           id="inst2NoConforme" name="Instalaciones[2].Estado"
+                                                           value="No conforme" />
+                                                    <label class="form-check-label" for="inst2NoConforme">No conforme</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-inst-2"
+                                                           name="Instalaciones[2].Observaciones"
+                                                           placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic"
+                                                            data-target="obs-inst-2" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 3: Sistema de gas -->
+                                        <tr>
+                                            <td>
+                                                Sistema de gas
+                                                <input type="hidden" name="Instalaciones[3].Item" value="Sistema de gas" />
+                                            </td>
+                                            <td data-label="Estado *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                           id="inst3Conforme" name="Instalaciones[3].Estado"
+                                                           value="Conforme" required />
+                                                    <label class="form-check-label" for="inst3Conforme">Conforme</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                           id="inst3NoConforme" name="Instalaciones[3].Estado"
+                                                           value="No conforme" />
+                                                    <label class="form-check-label" for="inst3NoConforme">No conforme</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-inst-3"
+                                                           name="Instalaciones[3].Observaciones"
+                                                           placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic"
+                                                            data-target="obs-inst-3" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 4: Sistema hidrosanitario -->
+                                        <tr>
+                                            <td>
+                                                Sistema hidrosanitario
+                                                <input type="hidden" name="Instalaciones[4].Item" value="Sistema hidrosanitario" />
+                                            </td>
+                                            <td data-label="Estado *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                           id="inst4Conforme" name="Instalaciones[4].Estado"
+                                                           value="Conforme" required />
+                                                    <label class="form-check-label" for="inst4Conforme">Conforme</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                           id="inst4NoConforme" name="Instalaciones[4].Estado"
+                                                           value="No conforme" />
+                                                    <label class="form-check-label" for="inst4NoConforme">No conforme</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-inst-4"
+                                                           name="Instalaciones[4].Observaciones"
+                                                           placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic"
+                                                            data-target="obs-inst-4" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 5: Sistema de ventilación -->
+                                        <tr>
+                                            <td>
+                                                Sistema de ventilación
+                                                <input type="hidden" name="Instalaciones[5].Item" value="Sistema de ventilación" />
+                                            </td>
+                                            <td data-label="Estado *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                           id="inst5Conforme" name="Instalaciones[5].Estado"
+                                                           value="Conforme" required />
+                                                    <label class="form-check-label" for="inst5Conforme">Conforme</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                           id="inst5NoConforme" name="Instalaciones[5].Estado"
+                                                           value="No conforme" />
+                                                    <label class="form-check-label" for="inst5NoConforme">No conforme</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-inst-5"
+                                                           name="Instalaciones[5].Observaciones"
+                                                           placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic"
+                                                            data-target="obs-inst-5" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 3.3 Seguridad y Accesibilidad -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-soft-primary py-2">
+                            <h6 class="mb-0 d-flex align-items-center gap-2">
+                                <i class="mdi mdi-shield-check-outline"></i>
+                                3.3 Seguridad y Accesibilidad
+                            </h6>
+                        </div>
+
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-sm align-middle mb-0 table-stacked">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Ítem Evaluado *</th>
+                                            <th style="width: 260px;">Cumple *</th>
+                                            <th>Observaciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- 0 -->
+                                        <tr>
+                                            <td>
+                                                Cuenta con salidas de emergencia accesibles y bien señalizada
+                                                <input type="hidden" name="SeguridadAccesibilidad[0].Item" value="Cuenta con salidas de emergencia accesibles y bien señalizada" />
+                                            </td>
+                                            <td data-label="Cumple *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="acc0Si" name="SeguridadAccesibilidad[0].Cumple" value="Sí" required />
+                                                    <label class="form-check-label" for="acc0Si">Sí</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="acc0No" name="SeguridadAccesibilidad[0].Cumple" value="No" />
+                                                    <label class="form-check-label" for="acc0No">No</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-acc-0" name="SeguridadAccesibilidad[0].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-acc-0" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 1 -->
+                                        <tr>
+                                            <td>
+                                                El edificio tiene barandas, pasamanos y rampas en áreas críticas
+                                                <input type="hidden" name="SeguridadAccesibilidad[1].Item" value="El edificio tiene barandas, pasamanos y rampas en áreas críticas" />
+                                            </td>
+                                            <td data-label="Cumple *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="acc1Si" name="SeguridadAccesibilidad[1].Cumple" value="Sí" required />
+                                                    <label class="form-check-label" for="acc1Si">Sí</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="acc1No" name="SeguridadAccesibilidad[1].Cumple" value="No" />
+                                                    <label class="form-check-label" for="acc1No">No</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-acc-1" name="SeguridadAccesibilidad[1].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-acc-1" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 2 -->
+                                        <tr>
+                                            <td>
+                                                Existen obstáculos o materiales peligrosos en zonas comunes
+                                                <input type="hidden" name="SeguridadAccesibilidad[2].Item" value="Existen obstáculos o materiales peligrosos en zonas comunes" />
+                                            </td>
+                                            <td data-label="Cumple *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="acc2Si" name="SeguridadAccesibilidad[2].Cumple" value="Sí" required />
+                                                    <label class="form-check-label" for="acc2Si">Sí</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="acc2No" name="SeguridadAccesibilidad[2].Cumple" value="No" />
+                                                    <label class="form-check-label" for="acc2No">No</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-acc-2" name="SeguridadAccesibilidad[2].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-acc-2" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3.4 Seguridad contra incendios (Normativa de Bomberos) -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-soft-primary py-2">
+                            <h6 class="mb-0 d-flex align-items-center gap-2">
+                                <i class="mdi mdi-fire-extinguisher"></i>
+                                3.4 Seguridad contra incendios (según Normativa de Bomberos)
+                            </h6>
+                        </div>
+
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-sm align-middle mb-0 table-stacked">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Ítem Evaluado *</th>
+                                            <th style="width: 260px;">Cumple *</th>
+                                            <th>Observaciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- 0 -->
+                                        <tr>
+                                            <td>
+                                                Extintores (tipo y cantidad adecuada)
+                                                <input type="hidden" name="SeguridadIncendios[0].Item" value="Extintores (tipo y cantidad adecuada)" />
+                                            </td>
+                                            <td data-label="Cumple *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="inc0Si" name="SeguridadIncendios[0].Cumple" value="Sí" required />
+                                                    <label class="form-check-label" for="inc0Si">Sí</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="inc0No" name="SeguridadIncendios[0].Cumple" value="No" />
+                                                    <label class="form-check-label" for="inc0No">No</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-inc-0" name="SeguridadIncendios[0].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-inc-0" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 1 -->
+                                        <tr>
+                                            <td>
+                                                Señalética de emergencia y evacuación
+                                                <input type="hidden" name="SeguridadIncendios[1].Item" value="Señalética de emergencia y evacuación" />
+                                            </td>
+                                            <td data-label="Cumple *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="inc1Si" name="SeguridadIncendios[1].Cumple" value="Sí" required />
+                                                    <label class="form-check-label" for="inc1Si">Sí</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="inc1No" name="SeguridadIncendios[1].Cumple" value="No" />
+                                                    <label class="form-check-label" for="inc1No">No</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-inc-1" name="SeguridadIncendios[1].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-inc-1" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 2 -->
+                                        <tr>
+                                            <td>
+                                                Iluminación de emergencia
+                                                <input type="hidden" name="SeguridadIncendios[2].Item" value="Iluminación de emergencia" />
+                                            </td>
+                                            <td data-label="Cumple *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="inc2Si" name="SeguridadIncendios[2].Cumple" value="Sí" required />
+                                                    <label class="form-check-label" for="inc2Si">Sí</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="inc2No" name="SeguridadIncendios[2].Cumple" value="No" />
+                                                    <label class="form-check-label" for="inc2No">No</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-inc-2" name="SeguridadIncendios[2].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-inc-2" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 3 -->
+                                        <tr>
+                                            <td>
+                                                Alarmas y detectores de humo
+                                                <input type="hidden" name="SeguridadIncendios[3].Item" value="Alarmas y detectores de humo" />
+                                            </td>
+                                            <td data-label="Cumple *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="inc3Si" name="SeguridadIncendios[3].Cumple" value="Sí" required />
+                                                    <label class="form-check-label" for="inc3Si">Sí</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="inc3No" name="SeguridadIncendios[3].Cumple" value="No" />
+                                                    <label class="form-check-label" for="inc3No">No</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-inc-3" name="SeguridadIncendios[3].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-inc-3" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 4 -->
+                                        <tr>
+                                            <td>
+                                                Bomba normada
+                                                <input type="hidden" name="SeguridadIncendios[4].Item" value="Bomba normada" />
+                                            </td>
+                                            <td data-label="Cumple *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="inc4Si" name="SeguridadIncendios[4].Cumple" value="Sí" required />
+                                                    <label class="form-check-label" for="inc4Si">Sí</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="inc4No" name="SeguridadIncendios[4].Cumple" value="No" />
+                                                    <label class="form-check-label" for="inc4No">No</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-inc-4" name="SeguridadIncendios[4].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-inc-4" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 5 -->
+                                        <tr>
+                                            <td>
+                                                Manómetros de bomba presurizados
+                                                <input type="hidden" name="SeguridadIncendios[5].Item" value="Manómetros de bomba presurizados" />
+                                            </td>
+                                            <td data-label="Cumple *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="inc5Si" name="SeguridadIncendios[5].Cumple" value="Sí" required />
+                                                    <label class="form-check-label" for="inc5Si">Sí</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="inc5No" name="SeguridadIncendios[5].Cumple" value="No" />
+                                                    <label class="form-check-label" for="inc5No">No</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-inc-5" name="SeguridadIncendios[5].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-inc-5" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 6 -->
+                                        <tr>
+                                            <td>
+                                                Accesos para vehículos de emergencia
+                                                <input type="hidden" name="SeguridadIncendios[6].Item" value="Accesos para vehículos de emergencia" />
+                                            </td>
+                                            <td data-label="Cumple *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="inc6Si" name="SeguridadIncendios[6].Cumple" value="Sí" required />
+                                                    <label class="form-check-label" for="inc6Si">Sí</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="inc6No" name="SeguridadIncendios[6].Cumple" value="No" />
+                                                    <label class="form-check-label" for="inc6No">No</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-inc-6" name="SeguridadIncendios[6].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-inc-6" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3.5 Factores de riesgo identificados -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-soft-primary py-2">
+                            <h6 class="mb-0 d-flex align-items-center gap-2">
+                                <i class="mdi mdi-alert-decagram-outline"></i>
+                                3.5 Factores de riesgo identificados
+                            </h6>
+                        </div>
+
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-sm align-middle mb-0 table-stacked">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Ítem Evaluado *</th>
+                                            <th style="width: 260px;">Cumple *</th>
+                                            <th>Observaciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- 0 -->
+                                        <tr>
+                                            <td>
+                                                Riesgo estructural
+                                                <input type="hidden" name="FactoresRiesgo[0].Item" value="Riesgo estructural" />
+                                            </td>
+                                            <td data-label="Cumple *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="ries0Si" name="FactoresRiesgo[0].Cumple" value="Sí" required />
+                                                    <label class="form-check-label" for="ries0Si">Sí</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="ries0No" name="FactoresRiesgo[0].Cumple" value="No" />
+                                                    <label class="form-check-label" for="ries0No">No</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-ries-0" name="FactoresRiesgo[0].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-ries-0" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 1 -->
+                                        <tr>
+                                            <td>
+                                                Riesgo eléctrico
+                                                <input type="hidden" name="FactoresRiesgo[1].Item" value="Riesgo eléctrico" />
+                                            </td>
+                                            <td data-label="Cumple *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="ries1Si" name="FactoresRiesgo[1].Cumple" value="Sí" required />
+                                                    <label class="form-check-label" for="ries1Si">Sí</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="ries1No" name="FactoresRiesgo[1].Cumple" value="No" />
+                                                    <label class="form-check-label" for="ries1No">No</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-ries-1" name="FactoresRiesgo[1].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-ries-1" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 2 -->
+                                        <tr>
+                                            <td>
+                                                Riesgo de incendio
+                                                <input type="hidden" name="FactoresRiesgo[2].Item" value="Riesgo de incendio" />
+                                            </td>
+                                            <td data-label="Cumple *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="ries2Si" name="FactoresRiesgo[2].Cumple" value="Sí" required />
+                                                    <label class="form-check-label" for="ries2Si">Sí</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="ries2No" name="FactoresRiesgo[2].Cumple" value="No" />
+                                                    <label class="form-check-label" for="ries2No">No</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-ries-2" name="FactoresRiesgo[2].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-ries-2" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 3 -->
+                                        <tr>
+                                            <td>
+                                                Riesgo sanitario
+                                                <input type="hidden" name="FactoresRiesgo[3].Item" value="Riesgo sanitario" />
+                                            </td>
+                                            <td data-label="Cumple *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="ries3Si" name="FactoresRiesgo[3].Cumple" value="Sí" required />
+                                                    <label class="form-check-label" for="ries3Si">Sí</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="ries3No" name="FactoresRiesgo[3].Cumple" value="No" />
+                                                    <label class="form-check-label" for="ries3No">No</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-ries-3" name="FactoresRiesgo[3].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-ries-3" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="tab-pane fade" id="step-4" role="tabpanel">
+                    <h5 class="mb-4">Riesgos Naturales</h5>
+                    <div class="card mb-4">
+                        
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-sm align-middle mb-0 table-stacked">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Ítem Evaluado *</th>
+                                            <th style="width: 260px;">Cumple *</th>
+                                            <th>Observaciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- 0 -->
+                                        <tr>
+                                            <td>
+                                                La zona es propensa a deslizamientos, inundaciones o sismos
+                                                <input type="hidden" name="RiesgosEntorno[0].Item" value="La zona es propensa a deslizamientos, inundaciones o sismos" />
+                                            </td>
+                                            <td data-label="Cumple *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="ent0Si" name="RiesgosEntorno[0].Cumple" value="Sí" required />
+                                                    <label class="form-check-label" for="ent0Si">Sí</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="ent0No" name="RiesgosEntorno[0].Cumple" value="No" />
+                                                    <label class="form-check-label" for="ent0No">No</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-ent-0" name="RiesgosEntorno[0].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-ent-0" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 1 -->
+                                        <tr>
+                                            <td>
+                                                El edificio tiene medidas preventivas (muros de contención, drenajes, reforzamientos sísmicos)
+                                                <input type="hidden" name="RiesgosEntorno[1].Item" value="El edificio tiene medidas preventivas (muros de contención, drenajes, reforzamientos sísmicos)" />
+                                            </td>
+                                            <td data-label="Cumple *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="ent1Si" name="RiesgosEntorno[1].Cumple" value="Sí" required />
+                                                    <label class="form-check-label" for="ent1Si">Sí</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="ent1No" name="RiesgosEntorno[1].Cumple" value="No" />
+                                                    <label class="form-check-label" for="ent1No">No</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-ent-1" name="RiesgosEntorno[1].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-ent-1" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <!-- 2 -->
+                                        <tr>
+                                            <td>
+                                                El edificio se encuentra cerca de un rio y/ o quebrada
+                                                <input type="hidden" name="RiesgosEntorno[2].Item" value="El edificio se encuentra cerca de un rio y/ o quebrada" />
+                                            </td>
+                                            <td data-label="Cumple *">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="ent2Si" name="RiesgosEntorno[2].Cumple" value="Sí" required />
+                                                    <label class="form-check-label" for="ent2Si">Sí</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" id="ent2No" name="RiesgosEntorno[2].Cumple" value="No" />
+                                                    <label class="form-check-label" for="ent2No">No</label>
+                                                </div>
+                                            </td>
+                                            <td data-label="Observaciones">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="obs-ent-2" name="RiesgosEntorno[2].Observaciones" placeholder="Escriba observaciones…" />
+                                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="obs-ent-2" title="Dictar observación">
+                                                        <i class="mdi mdi-microphone"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="step-5" role="tabpanel">
+                    <h5 class="mb-4">Hallazgos</h5>
+                    <!-- 5. Hallazgos -->
+                    <div class="card mb-4">
+                    
+
+                        <div class="card-body">
+                            <div class="mb-2">
+                                <label for="hallazgos" class="form-label">Detalles de hallazgos</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="mdi mdi-clipboard-text-outline text-secondary"></i>
+                                    </span>
+                                    <textarea class="form-control border-start-0"
+                                              id="hallazgos"
+                                              name="Hallazgos"
+                                              rows="6"
+                                              placeholder="Escriba o dicte al aplicativo"></textarea>
+                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="hallazgos" title="Dictar hallazgos">
+                                        <i class="mdi mdi-microphone"></i>
+                                    </button>
+                                </div>
+                                <small class="text-muted">Describe los hallazgos de la inspección. Puedes usar viñetas y plazos.</small>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="step-6" role="tabpanel">
+                    <h5 class="mb-4">Criterio General del Riesgo</h5>
+                    <!-- 6. Criterio general del riesgo -->
+                    <div class="card mb-4">
+                   
+                        <div class="card-body">
+                            <div class="mb-2">
+                                <label for="criterioGeneralRiesgo" class="form-label">Criterio general</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="mdi mdi-clipboard-check-outline text-secondary"></i>
+                                    </span>
+                                    <textarea class="form-control border-start-0"
+                                              id="criterioGeneralRiesgo"
+                                              name="CriterioGeneralRiesgo"
+                                              rows="5"
+                                              placeholder="• La edificación CUMPLE / NO CUMPLE con las condiciones mínimas de seguridad establecidas por las normativas ecuatorianas vigentes.&#10;• Sustento técnico y observaciones generales..."></textarea>
+                                    <button type="button" class="btn btn-outline-secondary btn-mic" data-target="criterioGeneralRiesgo" title="Dictar criterio">
+                                        <i class="mdi mdi-microphone"></i>
+                                    </button>
+                                </div>
+                                <small class="text-muted">Redacta el criterio final y el sustento técnico de la evaluación.</small>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="step-7" role="tabpanel">
+                    <h5 class="mb-4">Calificación de Riesgo</h5>
+                    <!-- Campos de Calificación de Riesgo -->
+                </div>
+                <div class="tab-pane fade" id="step-8" role="tabpanel">
+                    <h5 class="mb-4">Anexos</h5>
+                    <div class="card mb-4">
+                 
+                        <div class="card-body">
+                            <div class="row g-4">
+                                <!-- Registro Fotográfico -->
+                                <div class="col-lg-6">
+                                    <h6 class="mb-2 d-flex align-items-center gap-2">
+                                        <i class="mdi mdi-image-multiple-outline"></i> Registro Fotográfico
+                                    </h6>
+
+                                    <div class="d-flex flex-wrap gap-2 mb-2">
+                                        <button type="button" class="btn btn-primary" id="btnTakePhoto">
+                                            <i class="mdi mdi-camera"></i> Tomar foto
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary" id="btnUploadFotos">
+                                            <i class="mdi mdi-upload"></i> Subir fotos
+                                        </button>
+                                        <small class="text-muted align-self-center">JPG/PNG/WebP · máx. ~10MB c/u</small>
+                                    </div>
+
+                                    <!-- inputs file + títulos (hidden) -->
+                                    <div id="fotoInputs" class="d-none"></div>
+                                    <div id="fotoHiddenTitles" class="d-none"></div>
+
+                                    <!-- Galería -->
+                                    <div id="fotoGallery" class="row g-3"></div>
+                                </div>
+
+                                <!-- Documentos -->
+                                <div class="col-lg-6">
+                                    <h6 class="mb-2 d-flex align-items-center gap-2">
+                                        <i class="mdi mdi-file-document-outline"></i> Documentos presentados por el cliente
+                                    </h6>
+
+                                    <div class="d-flex flex-wrap gap-2 mb-2">
+                                        <button type="button" class="btn btn-primary" id="btnUploadDocs">
+                                            <i class="mdi mdi-upload"></i> Subir documentos
+                                        </button>
+                                        <small class="text-muted align-self-center">PDF/DOCX/XLSX/ZIP… · máx. ~20MB c/u</small>
+                                    </div>
+
+                                    <!-- inputs file + títulos (hidden) -->
+                                    <div id="docInputs" class="d-none"></div>
+                                    <div id="docHiddenTitles" class="d-none"></div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-sm align-middle mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th style="width:40px;"></th>
+                                                    <th>Archivo</th>
+                                                    <th style="width:45%;">Nombre para guardar</th>
+                                                    <th style="width:1%;"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="docTableBody"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- Linderos -->
+                                <div class="col-12">
+                                    <h6 class="mb-2 d-flex align-items-center gap-2">
+                                        <i class="mdi mdi-map-marker-radius-outline"></i> Linderos
+                                    </h6>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0">
+                                            <i class="mdi mdi-text-box-outline text-secondary"></i>
+                                        </span>
+                                        <input type="text" class="form-control border-start-0" id="linderos" name="Linderos"
+                                               placeholder="Norte: **** | Sur: **** | Este: **** | Oeste: ****" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <button type="button" id="prevBtn" class="btn btn-soft-secondary rounded-pill">
+                    <i class="ri-arrow-left-line me-1"></i> Anterior
+                </button>
+                <button type="button" id="nextBtn" class="btn btn-primary rounded-pill">
+                    Siguiente <i class="ri-arrow-right-line ms-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- Menú flotante -->
+<div class="floating-menu">
+    <button class="btn btn-primary btn-lg rounded-circle shadow-lg" id="openStepsMenu">
+        <i class="ri-menu-3-line fs-4"></i>
+    </button>
+    <div class="steps-list p-2 d-none" id="stepsMenu">
+        <div class="d-flex flex-column gap-2">
+            <button class="step-item btn btn-light d-flex align-items-center gap-3 rounded-pill" data-step="1">
+                <span class="badge bg-primary text-white rounded-circle" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center;">1</span>
+                <span>Datos Generales</span>
+            </button>
+            <button class="step-item btn btn-light d-flex align-items-center gap-3 rounded-pill" data-step="2">
+                <span class="badge bg-primary text-white rounded-circle" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center;">2</span>
+                <span>Documentación Revisada</span>
+            </button>
+            <button class="step-item btn btn-light d-flex align-items-center gap-3 rounded-pill" data-step="3">
+                <span class="badge bg-primary text-white rounded-circle" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center;">3</span>
+                <span>Inspección Física</span>
+            </button>
+            <button class="step-item btn btn-light d-flex align-items-center gap-3 rounded-pill" data-step="4">
+                <span class="badge bg-primary text-white rounded-circle" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center;">4</span>
+                <span>Riesgos Naturales</span>
+            </button>
+            <button class="step-item btn btn-light d-flex align-items-center gap-3 rounded-pill" data-step="5">
+                <span class="badge bg-primary text-white rounded-circle" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center;">5</span>
+                <span>Hallazgos</span>
+            </button>
+            <button class="step-item btn btn-light d-flex align-items-center gap-3 rounded-pill" data-step="6">
+                <span class="badge bg-primary text-white rounded-circle" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center;">6</span>
+                <span>Criterio Riesgo</span>
+            </button>
+            <button class="step-item btn btn-light d-flex align-items-center gap-3 rounded-pill" data-step="7">
+                <span class="badge bg-primary text-white rounded-circle" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center;">7</span>
+                <span>Calificación Riesgo</span>
+            </button>
+            <button class="step-item btn btn-light d-flex align-items-center gap-3 rounded-pill" data-step="8">
+                <span class="badge bg-primary text-white rounded-circle" style="width:32px; height:32px; display:flex; align-items:center; justify-content:center;">8</span>
+                <span>Anexos</span>
+            </button>
+
+            <a class=" btn btn-light d-flex align-items-center gap-3 rounded-pill"
+               href="@Url.Action("Inicio", "Home")">
+                <!-- Icono MDI -->
+                <i class="mdi mdi-arrow-left-bold-circle-outline mdi-24px text-secondary"></i>
+                <!-- Texto del botón -->
+                <span>Regresar al menú</span>
+            </a>
+
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .floating-menu {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1050;
+        }
+
+        .steps-list {
+            position: absolute;
+            bottom: 5.5rem;
+            right: 0;
+            background: transparent;
+        }
+
+        .step-item {
+            background: rgba(255,255,255,0.8);
+            border: none;
+            padding: 0.5rem 1rem;
+            transition: background 0.2s;
+        }
+
+            .step-item:hover {
+                background: rgba(255,255,255,1);
+            }
+
+            .step-item.active {
+                background: #0d6efd;
+                color: #fff;
+            }
+
+            .step-item .badge {
+                flex-shrink: 0;
+            }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const panes = document.querySelectorAll('.tab-pane');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const indicator = document.getElementById('currentStepNum');
+            const menuBtn = document.getElementById('openStepsMenu');
+            const menu = document.getElementById('stepsMenu');
+            const items = Array.from(menu.querySelectorAll('.step-item'));
+            const total = items.length;
+
+            // --- LÓGICA AGREGADA PARA LEER EL STEP DE LA URL ---
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialStep = parseInt(urlParams.get('step')) || 1;
+            // ----------------------------------------------------
+
+            let current = initialStep; // Inicializa 'current' con el valor de la URL o 1 por defecto
+
+            function updateStep(target) {
+                items.forEach(item => {
+                    const step = parseInt(item.getAttribute('data-step'));
+                    item.classList.toggle('active', step === target);
+                });
+                panes.forEach(p => {
+                    const idStep = parseInt(p.id.split('-')[1]);
+                    const show = idStep === target;
+                    p.classList.toggle('show', show);
+                    p.classList.toggle('active', show);
+                });
+                indicator.textContent = target;
+                current = target;
+                prevBtn.style.visibility = current === 1 ? 'hidden' : 'visible';
+                nextBtn.innerHTML = current === total ? 'Finalizar <i class="ri-check-line ms-1"></i>' : 'Siguiente <i class="ri-arrow-right-line ms-1"></i>';
+            }
+
+            menuBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                menu.classList.toggle('d-none');
+            });
+
+            items.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = parseInt(this.getAttribute('data-step'));
+                    updateStep(target);
+                    menu.classList.add('d-none');
+                });
+            });
+
+            prevBtn.addEventListener('click', function() {
+                if (current > 1) updateStep(current - 1);
+            });
+            nextBtn.addEventListener('click', function() {
+                if (current < total) updateStep(current + 1);
+                else document.getElementById('wizardForm').submit();
+            });
+
+            // --- LÓGICA AGREGADA PARA INICIALIZAR EN EL PASO CORRECTO ---
+            updateStep(initialStep); // Llama a la función para establecer el paso inicial
+            // -----------------------------------------------------------
+        });
+    </script>
+
+    <script>
+        (function () {
+          const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+          const mics = document.querySelectorAll('.btn-mic');
+
+          if (!SpeechRecognition) {
+            // Deshabilita botones si el navegador no soporta reconocimiento de voz
+            mics.forEach(btn => {
+              btn.disabled = true;
+              btn.title = 'Dictado no soportado en este navegador';
+              btn.classList.add('disabled');
+            });
+            return;
+          }
+
+          function startDictation(targetId) {
+            const input = document.getElementById(targetId);
+            if (!input) return;
+
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'es-EC'; // cambia a 'es-ES' si prefieres
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            // UI feedback
+            const btn = document.querySelector('.btn-mic[data-target="' + targetId + '"]');
+            if (btn) {
+              btn.dataset.prevHtml = btn.innerHTML;
+              btn.innerHTML = '<i class="mdi mdi-record"></i>';
+              btn.classList.add('btn-danger');
+            }
+
+            recognition.onresult = (e) => {
+              const transcript = e.results[0][0].transcript;
+              // agrega con espacio si ya hay texto
+              input.value = input.value ? (input.value.trim() + ' ' + transcript) : transcript;
+              input.dispatchEvent(new Event('input', { bubbles: true }));
+            };
+
+            recognition.onend = () => {
+              if (btn) {
+                btn.innerHTML = btn.dataset.prevHtml || '<i class="mdi mdi-microphone"></i>';
+                btn.classList.remove('btn-danger');
+              }
+            };
+
+            recognition.onerror = () => {
+              if (btn) {
+                btn.innerHTML = btn.dataset.prevHtml || '<i class="mdi mdi-microphone"></i>';
+                btn.classList.remove('btn-danger');
+              }
+            };
+
+            recognition.start();
+            input.focus();
+          }
+
+          // Delegación de eventos
+          document.addEventListener('click', function (e) {
+            const btn = e.target.closest('.btn-mic');
+            if (!btn) return;
+            const targetId = btn.getAttribute('data-target');
+            if (targetId) startDictation(targetId);
+          });
+        })();
+    </script>
+
+    <script>
+        (() => {
+          // ==== Utils ====
+          const createEl = (tag, attrs = {}, html = "") => {
+            const el = document.createElement(tag);
+            Object.entries(attrs).forEach(([k, v]) => {
+              if (k === "class") el.className = v;
+              else if (k === "dataset") Object.assign(el.dataset, v);
+              else el.setAttribute(k, v);
+            });
+            if (html) el.innerHTML = html;
+            return el;
+          };
+          const baseName = (filename) => {
+            const lastDot = filename.lastIndexOf(".");
+            return lastDot > 0 ? filename.substring(0, lastDot) : filename;
+          };
+          const ext = (filename) => {
+            const i = filename.lastIndexOf(".");
+            return i >= 0 ? filename.substring(i + 1).toLowerCase() : "";
+          };
+          function makeSingleFileInput(fieldName, file) {
+            const inp = createEl("input", { type: "file", name: fieldName, class: "d-none single-file-input" });
+            const dt = new DataTransfer();
+            dt.items.add(file);
+            inp.files = dt.files; // un solo File dentro del FileList
+            return inp;
+          }
+
+          // ==== FOTOS ====
+          const fotoInputs = document.getElementById("fotoInputs");
+          const fotoHiddenTitles = document.getElementById("fotoHiddenTitles");
+          const fotoGallery = document.getElementById("fotoGallery");
+          const btnTakePhoto = document.getElementById("btnTakePhoto");
+          const btnUploadFotos = document.getElementById("btnUploadFotos");
+          let fotoIdx = 0;
+
+          function addPhotoFile(file) {
+            if (!file) return;
+            // Validación simple tamaño (10MB)
+            if (file.size > 10 * 1024 * 1024) { alert("Foto supera 10MB: " + file.name); return; }
+
+            const idx = fotoIdx++;
+            const hiddenTitle = createEl("input", {
+              type: "hidden", name: "AnexosFotosTitulos", value: baseName(file.name), id: `foto-title-${idx}`
+            });
+            const fileInput = makeSingleFileInput("AnexosFotos", file);
+            fotoInputs.appendChild(fileInput);
+            fotoHiddenTitles.appendChild(hiddenTitle);
+
+            const col = createEl("div", { class: "col-12 col-sm-6 col-md-4" });
+            const card = createEl("div", { class: "foto-card h-100 d-flex flex-column" });
+            const img = createEl("img");
+            img.src = URL.createObjectURL(file);
+
+            const titleGroup = createEl("div", { class: "mt-2" });
+            const titleInput = createEl("input", {
+              type: "text", class: "form-control form-control-sm",
+              value: baseName(file.name), placeholder: "Nombre de la foto"
+            });
+            titleInput.addEventListener("input", () => hiddenTitle.value = titleInput.value);
+
+            const tinyName = createEl("div", { class: "tiny-muted mt-1" },
+              `<i class="mdi mdi-file-image-outline"></i> ${file.name}`);
+
+            const actions = createEl("div", { class: "mt-2 d-flex justify-content-end" });
+            const btnDel = createEl("button", { type: "button", class: "btn btn-sm btn-outline-danger", title: "Quitar" },
+              `<i class="mdi mdi-delete-outline"></i>`);
+            btnDel.addEventListener("click", () => {
+              URL.revokeObjectURL(img.src);
+              col.remove(); fileInput.remove(); hiddenTitle.remove();
+            });
+
+            actions.appendChild(btnDel);
+            titleGroup.appendChild(titleInput);
+            titleGroup.appendChild(tinyName);
+            card.appendChild(img);
+            card.appendChild(titleGroup);
+            card.appendChild(actions);
+            col.appendChild(card);
+            fotoGallery.appendChild(col);
+          }
+
+          // Tomar foto (cámara)
+          btnTakePhoto.addEventListener("click", () => {
+            const inp = createEl("input", {
+              type: "file", accept: "image/*", capture: "environment", class: "d-none"
+            });
+            inp.addEventListener("change", () => {
+              const f = inp.files?.[0];
+              if (f) addPhotoFile(f);
+              inp.remove();
+            });
+            document.body.appendChild(inp);
+            inp.click();
+          });
+
+          // Subir múltiples fotos
+          btnUploadFotos.addEventListener("click", () => {
+            const inp = createEl("input", {
+              type: "file", accept: "image/*", multiple: "multiple", class: "d-none"
+            });
+            inp.addEventListener("change", () => {
+              const files = Array.from(inp.files || []);
+              files.forEach(addPhotoFile);
+              inp.remove();
+            });
+            document.body.appendChild(inp);
+            inp.click();
+          });
+
+          // ==== DOCUMENTOS ====
+          const docInputs = document.getElementById("docInputs");
+          const docHiddenTitles = document.getElementById("docHiddenTitles");
+          const docTableBody = document.getElementById("docTableBody");
+          const btnUploadDocs = document.getElementById("btnUploadDocs");
+          let docIdx = 0;
+
+          function addDocFile(file) {
+            if (!file) return;
+            // Validación simple tamaño (20MB)
+            if (file.size > 20 * 1024 * 1024) { alert("Documento supera 20MB: " + file.name); return; }
+
+            const idx = docIdx++;
+            const hiddenTitle = createEl("input", {
+              type: "hidden", name: "AnexosDocsTitulos", value: baseName(file.name), id: `doc-title-${idx}`
+            });
+            const fileInput = makeSingleFileInput("AnexosDocs", file);
+            docInputs.appendChild(fileInput);
+            docHiddenTitles.appendChild(hiddenTitle);
+
+            const tr = createEl("tr");
+            const iconName = (() => {
+              const e = ext(file.name);
+              if (["pdf"].includes(e)) return "mdi-file-pdf-box";
+              if (["doc","docx","rtf"].includes(e)) return "mdi-file-word-box";
+              if (["xls","xlsx","csv"].includes(e)) return "mdi-file-excel-box";
+              if (["zip","rar","7z"].includes(e)) return "mdi-folder-zip-outline";
+              return "mdi-file-outline";
+            })();
+
+            const tdIcon = createEl("td", {}, `<i class="mdi ${iconName}"></i>`);
+            const tdName = createEl("td", {}, `<span class="tiny-muted">${file.name}</span>`);
+            const tdTitle = createEl("td");
+            const titleInput = createEl("input", {
+              type: "text", class: "form-control form-control-sm",
+              value: baseName(file.name), placeholder: "Nombre para guardar"
+            });
+            titleInput.addEventListener("input", () => hiddenTitle.value = titleInput.value);
+            tdTitle.appendChild(titleInput);
+
+            const tdActions = createEl("td");
+            const btnDel = createEl("button", { type: "button", class: "btn btn-sm btn-outline-danger", title: "Quitar" },
+              `<i class="mdi mdi-delete-outline"></i>`);
+            btnDel.addEventListener("click", () => { tr.remove(); fileInput.remove(); hiddenTitle.remove(); });
+
+            tdActions.appendChild(btnDel);
+            tr.appendChild(tdIcon);
+            tr.appendChild(tdName);
+            tr.appendChild(tdTitle);
+            tr.appendChild(tdActions);
+            docTableBody.appendChild(tr);
+          }
+
+          // Subir múltiples documentos
+          btnUploadDocs.addEventListener("click", () => {
+            const inp = createEl("input", {
+              type: "file",
+              accept: ".pdf,.doc,.docx,.rtf,.xls,.xlsx,.csv,.zip,.rar,.7z,.txt",
+              multiple: "multiple",
+              class: "d-none"
+            });
+            inp.addEventListener("change", () => {
+              const files = Array.from(inp.files || []);
+              files.forEach(addDocFile);
+              inp.remove();
+            });
+            document.body.appendChild(inp);
+            inp.click();
+          });
+
+        })();
+    </script>
+}

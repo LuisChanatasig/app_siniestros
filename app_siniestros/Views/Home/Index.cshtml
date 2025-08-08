@@ -1,0 +1,195 @@
+﻿@{
+
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Team</title>
+    <link href="~/css/site.css" rel="stylesheet" />
+  
+</head>
+<body class="dark-mode">
+    <button id="themeToggle">🌙</button>
+    <h1 class="about-title">Inspección Siniestros</h1>
+
+    <!-- Buscador -->
+    <div class="search-container">
+        <input type="text"
+               id="searchInput"
+               placeholder="Buscar miembro..."
+               autocomplete="off" />
+    </div>
+
+    <div class="carousel-container">
+        <button class="nav-arrow left">‹</button>
+        <div class="carousel-track"></div>
+        <button class="nav-arrow right">›</button>
+    </div>
+
+    <div class="member-info">
+        <h2 class="member-name"></h2>
+        <p class="member-role"></p>
+    </div>
+
+    <div class="dots"></div>
+
+    <script>
+        // Resuelve el prefijo "~/" en tiempo de ejecución
+        const basePath = '@Url.Content("~/")';
+
+        // Datos iniciales con rutas ya válidas
+        const originalMembers = [
+          {
+            name: "Industrias",
+            role: "Formulario de Industrias",
+            imgSrc: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3",
+            imgAlt: "Industrias"
+          },
+          {
+            name: "Michael Steward",
+            role: "Creative Director",
+            imgSrc: basePath + 'img/logo_app_generales-1.png',
+            imgAlt: "Michael Steward"
+          },
+          {
+            name: "Emma Rodriguez",
+            role: "Lead Developer",
+            imgSrc: basePath + 'img/logo_app_generales-1.png',
+            imgAlt: "Emma Rodriguez"
+          },
+          {
+            name: "Julia Gimmel",
+            role: "UX Designer",
+            imgSrc: basePath + 'img/logo_app_generales-1.png',
+            imgAlt: "Julia Gimmel"
+          },
+          {
+            name: "Lisa Anderson",
+            role: "Marketing Manager",
+            imgSrc: basePath + 'img/logo_app_generales-1.png',
+            imgAlt: "Lisa Anderson"
+          },
+          {
+            name: "James Wilson",
+            role: "Product Manager",
+            imgSrc: basePath + 'img/logo_app_generales-1.png',
+            imgAlt: "James Wilson"
+          }
+        ];
+
+        // Estado mutable
+        let teamMembers = [...originalMembers];
+        let cards, dots;
+        let currentIndex = 0;
+        let isAnimating = false;
+
+        // Referencias al DOM
+        const track       = document.querySelector(".carousel-track");
+        const dotsCtr     = document.querySelector(".dots");
+        const memberName  = document.querySelector(".member-name");
+        const memberRole  = document.querySelector(".member-role");
+        const leftArrow   = document.querySelector(".nav-arrow.left");
+        const rightArrow  = document.querySelector(".nav-arrow.right");
+        const searchInput = document.getElementById("searchInput");
+        const themeToggle = document.getElementById("themeToggle");
+
+        // Construye el carrusel y los puntos según el array teamMembers
+        function renderCarousel() {
+          track.innerHTML = teamMembers.map((m, i) => `
+            <div class="card" data-index="${i}">
+              <img src="${m.imgSrc}" alt="${m.imgAlt}" />
+            </div>
+          `).join("");
+
+          dotsCtr.innerHTML = teamMembers.map((_, i) => `
+            <div class="dot${i === 0 ? ' active' : ''}" data-index="${i}"></div>
+          `).join("");
+
+          cards = document.querySelectorAll(".card");
+          dots  = document.querySelectorAll(".dot");
+          addListeners();
+          updateCarousel(0);
+        }
+
+        // Añade listeners de navegación al carrusel
+        function addListeners() {
+          leftArrow.onclick  = () => updateCarousel(currentIndex - 1);
+          rightArrow.onclick = () => updateCarousel(currentIndex + 1);
+          cards.forEach((c, i) => c.onclick = () => updateCarousel(i));
+          dots.forEach((d, i) => d.onclick = () => updateCarousel(i));
+        }
+
+        // Actualiza la posición y el estado del carrusel
+        function updateCarousel(newIndex) {
+          if (isAnimating || teamMembers.length === 0) return;
+          isAnimating = true;
+          currentIndex = (newIndex + teamMembers.length) % teamMembers.length;
+
+          cards.forEach((card, i) => {
+            const offset = (i - currentIndex + teamMembers.length) % teamMembers.length;
+            card.className = "card";
+            if      (offset === 0)                      card.classList.add("center");
+            else if (offset === 1)                      card.classList.add("right-1");
+            else if (offset === 2)                      card.classList.add("right-2");
+            else if (offset === teamMembers.length - 1) card.classList.add("left-1");
+            else if (offset === teamMembers.length - 2) card.classList.add("left-2");
+            else                                        card.classList.add("hidden");
+          });
+
+          dots.forEach((dot, i) => dot.classList.toggle("active", i === currentIndex));
+
+          memberName.style.opacity = 0;
+          memberRole.style.opacity = 0;
+          setTimeout(() => {
+            memberName.textContent = teamMembers[currentIndex].name;
+            memberRole.textContent = teamMembers[currentIndex].role;
+            memberName.style.opacity = 1;
+            memberRole.style.opacity = 1;
+          }, 300);
+
+          setTimeout(() => isAnimating = false, 800);
+        }
+
+        // Filtra el carrusel según el texto del buscador
+        searchInput.addEventListener("input", e => {
+          const q = e.target.value.trim().toLowerCase();
+          teamMembers = q
+            ? originalMembers.filter(m => m.name.toLowerCase().includes(q))
+            : [...originalMembers];
+          renderCarousel();
+        });
+
+        // Manejo de swipe en móviles
+        let touchStartX = 0;
+        document.addEventListener("touchstart", e => {
+          touchStartX = e.changedTouches[0].screenX;
+        });
+        document.addEventListener("touchend", e => {
+          const diff = touchStartX - e.changedTouches[0].screenX;
+          if (Math.abs(diff) > 50) {
+            updateCarousel(diff > 0 ? currentIndex + 1 : currentIndex - 1);
+          }
+        });
+
+        // Navegación con teclado
+        document.addEventListener("keydown", e => {
+          if (e.key === "ArrowLeft")  updateCarousel(currentIndex - 1);
+          if (e.key === "ArrowRight") updateCarousel(currentIndex + 1);
+        });
+
+        // Toggle de tema oscuro/claro
+        themeToggle.addEventListener("click", () => {
+          document.body.classList.toggle("dark-mode");
+          themeToggle.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+        });
+
+        // Inicializa el carrusel
+        renderCarousel();
+    </script>
+
+</body>
+</html>

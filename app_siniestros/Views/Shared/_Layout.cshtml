@@ -1,0 +1,139 @@
+﻿<!doctype html>
+<html lang="es"
+      data-layout="horizontal"
+      data-layout-mode="dark"
+      data-theme="dark"
+      data-bs-theme="dark"
+      data-topbar="dark"
+      data-sidebar="dark"
+      data-sidebar-size="lg"
+      data-sidebar-image="none"
+      data-preloader="disable">
+<head>
+    @await Html.PartialAsync("_title_meta")
+    @RenderSection("styles", required: false)
+    @await Html.PartialAsync("_head_css")
+
+
+</head>
+<body>
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        @await Html.PartialAsync("_menu")
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+
+            <div class="page-content">
+                <div class="container-fluid">
+                    @*  @await Html.PartialAsync("_page_title") *@
+
+                    @RenderBody()
+
+                    <div class="modal fade" id="modalCasos" tabindex="-1" aria-labelledby="modalCasosLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalCasosLabel">📋 Listado de Casos</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                </div>
+                                <div class="modal-body" id="contenidoCasosModal">
+                                    <!-- Aquí se cargará la vista parcial -->
+                                    <div class="text-center my-5">
+                                        <div class="spinner-border text-primary" role="status"></div>
+                                        <p class="mt-3">Cargando casos...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            @await Html.PartialAsync("_footer")
+        </div>
+
+    </div>
+    <!-- END layout-wrapper -->
+    @await Html.PartialAsync("_vendor_scripts")
+
+    @RenderSection("scripts", required: false)
+    <script>
+        // Forzar modo oscuro tras carga (por si acaso)
+        document.documentElement.setAttribute('data-layout-mode', 'dark');
+        document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.setAttribute('data-bs-theme', 'dark');
+        document.documentElement.setAttribute('data-topbar', 'dark');
+        document.documentElement.setAttribute('data-sidebar', 'dark');
+    </script>
+
+    <script>
+        var timeout = 30 * 60 * 1000; // 30 minutos en milisegundos
+
+        var logoutTimer = setTimeout(logout, timeout);
+
+        function logout() {
+            window.location.href = "@Url.Action("InicioSesion", "Autenticacion")"; // Redirige al login
+        }
+
+        function resetTimer() {
+            clearTimeout(logoutTimer);
+            logoutTimer = setTimeout(logout, timeout);
+        }
+
+        // Detectar actividad del usuario
+        document.addEventListener("mousemove", resetTimer);
+        document.addEventListener("keydown", resetTimer);
+
+
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          document.querySelectorAll('.logo-anim').forEach(el => el.classList.add('loaded'));
+        });
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+              .catch(err => console.error('SW fail:', err));
+          });
+        }
+
+        // Botón instalar opcional
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          const btn = document.getElementById('btnInstall');
+          if (btn) btn.classList.remove('d-none');
+        });
+
+        async function installPWA() {
+          if (!deferredPrompt) return;
+          deferredPrompt.prompt();
+          await deferredPrompt.userChoice;
+          deferredPrompt = null;
+          const btn = document.getElementById('btnInstall');
+          if (btn) btn.classList.add('d-none');
+        }
+    </script>
+    <script>
+        (async () => {
+          const ASSETS = ['/', '/offline.html', '/css/site.css', '/js/site.js'];
+          for (const url of ASSETS) {
+            try {
+              const r = await fetch(url, { cache: 'no-cache' });
+              console.log(url, r.status, r.ok ? 'OK' : 'FAIL');
+            } catch (e) {
+              console.error(url, e);
+            }
+          }
+        })();
+    </script>
+
+</body>
+</html>

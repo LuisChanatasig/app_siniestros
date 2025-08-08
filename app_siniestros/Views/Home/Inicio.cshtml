@@ -1,0 +1,242 @@
+﻿@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Team</title>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.4.47/css/materialdesignicons.min.css" integrity="sha512-/k658G6UsCvbkGRB3vPXpsPHgWeduJwiWGPCGS14IQw3xpr63AEMdA8nMYG2gmYkXitQxDTn6iiK/2fD4T87qA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#0d6efd">
+
+    <!-- iOS / iPadOS -->
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Siniestros">
+</head>
+<body class="dark-mode">
+    <!-- Alternar tema (posicionado fuera de la card para no romper el padding) -->
+    <button id="themeToggle" class="btn btn-icon btn-soft-primary position-fixed top-0 start-0 m-3">🌙</button>
+
+    <!-- Contenedor principal -->
+    <div class="container py-5">
+  
+        <!-- Un poco más pequeño que display-1 -->
+        
+        <!-- Buscador Velzon -->
+        <div class="search-container mb-5 w-100 d-flex justify-content-center">
+            <div class="input-group input-group-lg w-50">
+                <span class="input-group-text bg-light"><i class="ri-search-line fs-5"></i></span>
+                <input type="text"
+                       id="searchInput"
+                       class="form-control"
+                       placeholder="Buscar módulo..."
+                       autocomplete="off" />
+            </div>
+        </div>
+
+        <!-- Carrusel -->
+        <div class="carousel-container position-relative mb-5">
+            <button class="nav-arrow left btn btn-icon btn-soft-primary shadow-sm">
+                <i class="mdi mdi-arrow-left"></i>
+            </button>
+            <div class="carousel-track"></div>
+            <button class="nav-arrow right btn btn-icon btn-soft-primary shadow-sm">
+                <i class="mdi mdi-arrow-right"></i>
+            </button>
+        </div>
+
+        <!-- Info activa -->
+        <div class="member-info text-center mt-4">
+            <h2 class="member-name h3 fw-bold"></h2>
+            <p class="member-role text-muted"></p>
+        </div>
+
+        <!-- Dots Velzon -->
+        <div class="dots d-flex justify-content-center gap-2 mt-3"></div>
+
+    </div><!-- /.container -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        const basePath = '@Url.Content("~/")';
+        const originalMembers = [
+            { name: "Datos Generales", role: "Sección 1", step: 1, imgSrc: basePath + 'img/Datos_Generales.png', imgAlt: "Datos Generales" },
+            { name: "Documentación Revisada", role: "Sección 2", step: 2, imgSrc: basePath + 'img/documentacion_revisada.jpg', imgAlt: "Documentación Revisada" },
+            { name: "Inspección Física del Edificio", role: "Sección 3", step: 3, imgSrc: basePath + 'img/inspeccion_fisica.png', imgAlt: "Inspección Física" },
+            { name: "Riesgos Naturales", role: "Sección 4", step: 4, imgSrc: basePath + 'img/riesgos_naturales.png', imgAlt: "Riesgos Naturales" },
+            { name: "Hallazgos", role: "Sección 5", step: 5, imgSrc: basePath + 'img/logo_hallazgos.jpg', imgAlt: "Hallazgos" },
+            { name: "Criterio General del Riesgo", role: "Sección 6", step: 6, imgSrc: basePath + 'img/criterio_general.png', imgAlt: "Criterio General" },
+            { name: "Calificación de Riesgo", role: "Sección 7", step: 7, imgSrc: basePath + 'img/calificacion_riesgo.png', imgAlt: "Calificación" },
+            { name: "Anexos", role: "Sección 8", step: 8, imgSrc: basePath + 'img/anexos.png', imgAlt: "Anexos" }
+        ];
+
+        let teamMembers = [...originalMembers],
+            cards, dots,
+            currentIndex = 0,
+            isAnimating = false;
+
+        const track = document.querySelector(".carousel-track"),
+              dotsCtr = document.querySelector(".dots"),
+              memberName = document.querySelector(".member-name"),
+              memberRole = document.querySelector(".member-role"),
+              leftArrow = document.querySelector(".nav-arrow.left"),
+              rightArrow = document.querySelector(".nav-arrow.right"),
+              searchInput = document.getElementById("searchInput"),
+              themeToggle = document.getElementById("themeToggle"),
+              goToWizardBtn = document.getElementById("goToWizardBtn");
+
+        function renderCarousel() {
+            track.innerHTML = teamMembers.map((m,i)=>`
+                <div class="card position-absolute shadow-sm" data-index="${i}" style="cursor: pointer;">
+                  <img src="${m.imgSrc}" class="card-img-top" alt="${m.imgAlt}">
+                  <div class="card-img-overlay d-flex flex-column justify-content-end p-3">
+                    <h3 class="h5 text-white mb-1">${m.name}</h3>
+                    <p class="small text-light">${m.role}</p>
+                  </div>
+                </div>
+            `).join("");
+
+            dotsCtr.innerHTML = teamMembers.map((_,i)=>`
+                <div class="dot rounded-circle ${i===0?'bg-primary':'bg-secondary'}" data-index="${i}"></div>
+            `).join("");
+
+            cards = document.querySelectorAll(".card");
+            dots = document.querySelectorAll(".dot");
+            addListeners();
+            updateCarousel(0);
+        }
+
+        function addListeners() {
+            leftArrow.onclick = () => updateCarousel(currentIndex - 1);
+            rightArrow.onclick = () => updateCarousel(currentIndex + 1);
+
+            // Lógica de redirección para cada card
+            cards.forEach((card, i) => {
+                card.addEventListener('click', () => {
+                    const step = teamMembers[i].step;
+                    // La URL de redirección
+                    const redirectUrl = '@Url.Action("Industrias", "Formularios")?step=' + step;
+                    window.location.href = redirectUrl;
+                });
+            });
+
+            dots.forEach((dot,i) => dot.onclick = () => updateCarousel(i));
+
+            goToWizardBtn.onclick = () => {
+                const step = teamMembers[currentIndex].step;
+                window.location.href = '@Url.Action("Industrias", "Formularios")?step=' + step;
+            };
+        }
+
+        function updateCarousel(newIndex) {
+            if(isAnimating || !teamMembers.length) return;
+            isAnimating = true;
+            currentIndex = (newIndex + teamMembers.length) % teamMembers.length;
+
+            cards.forEach((card,i)=>{
+                const offset = (i - currentIndex + teamMembers.length) % teamMembers.length;
+                card.className = "card position-absolute shadow-sm";
+                if      (offset===0)                    card.classList.add("center","z-index-10");
+                else if (offset===1)                    card.classList.add("right-1","opacity-75");
+                else if (offset===2)                    card.classList.add("right-2","opacity-50");
+                else if (offset===teamMembers.length-1) card.classList.add("left-1","opacity-75");
+                else if (offset===teamMembers.length-2) card.classList.add("left-2","opacity-50");
+                else                                    card.classList.add("hidden");
+            });
+
+            dots.forEach((d,i)=> d.classList.toggle("bg-primary", i===currentIndex));
+
+            // animar texto
+            memberName.classList.add("opacity-0");
+            memberRole.classList.add("opacity-0");
+            setTimeout(()=>{
+                memberName.textContent = teamMembers[currentIndex].name;
+                memberRole.textContent = teamMembers[currentIndex].role;
+                memberName.classList.remove("opacity-0");
+                memberRole.classList.remove("opacity-0");
+            }, 300);
+
+            setTimeout(()=> isAnimating = false, 800);
+        }
+
+        // búsqueda en vivo
+        searchInput.addEventListener("input", e => {
+            const q = e.target.value.trim().toLowerCase();
+            teamMembers = q
+                ? originalMembers.filter(m => m.name.toLowerCase().includes(q))
+                : [...originalMembers];
+            renderCarousel();
+        });
+
+        // gestos y teclas
+        let touchStartX = 0;
+        document.addEventListener("touchstart", e => touchStartX = e.changedTouches[0].screenX);
+        document.addEventListener("touchend", e => {
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if(Math.abs(diff) > 50) updateCarousel(diff > 0 ? currentIndex+1 : currentIndex-1);
+        });
+        document.addEventListener("keydown", e => {
+            if(e.key === "ArrowLeft") updateCarousel(currentIndex-1);
+            if(e.key === "ArrowRight") updateCarousel(currentIndex+1);
+        });
+
+        // toggle claro/oscuro
+        themeToggle.addEventListener("click", ()=>{
+            document.body.classList.toggle("dark-mode");
+            themeToggle.classList.toggle("btn-soft-primary");
+            themeToggle.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+        });
+
+        renderCarousel();
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/service-worker.js')
+              .catch(err => console.error('SW fail:', err));
+          });
+        }
+
+        // Botón instalar opcional
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          const btn = document.getElementById('btnInstall');
+          if (btn) btn.classList.remove('d-none');
+        });
+
+        async function installPWA() {
+          if (!deferredPrompt) return;
+          deferredPrompt.prompt();
+          await deferredPrompt.userChoice;
+          deferredPrompt = null;
+          const btn = document.getElementById('btnInstall');
+          if (btn) btn.classList.add('d-none');
+        }
+    </script>
+
+    <script>
+        (async () => {
+          const ASSETS = ['/', '/offline.html', '/css/site.css', '/js/site.js'];
+          for (const url of ASSETS) {
+            try {
+              const r = await fetch(url, { cache: 'no-cache' });
+              console.log(url, r.status, r.ok ? 'OK' : 'FAIL');
+            } catch (e) {
+              console.error(url, e);
+            }
+          }
+        })();
+    </script>
+
+</body>
+
+</html>

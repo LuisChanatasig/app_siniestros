@@ -1,0 +1,185 @@
+﻿/* -----------------------------------
+   Variables de color (basadas en tu logo)
+----------------------------------- */
+:root {
+    /* Azul principal extraído del logo */
+    --primary-blue: #03588f; /* muestra un azul similar al de "SafeRisk" */
+    --light-bg: #f8f9fa;
+    --light-card-bg: rgba(255,255,255,0.8);
+    --light-input-bg: #ffffff;
+    --light-text: #333333;
+    --dark-bg: #1a1a1d;
+    --dark-card-bg: rgba(44,44,49,0.4);
+    --dark-input-bg: #3c3c41;
+    --dark-text: #f1f1f1;
+}
+
+/* -----------------------------------
+   Estilos globales
+----------------------------------- */
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--dark-bg);
+    color: var(--dark-text);
+    font-family: 'Poppins', sans-serif;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* -----------------------------------
+   Tarjeta de login
+----------------------------------- */
+.login-card {
+    width: 90%;
+    max-width: 400px;
+    padding: 2rem;
+    border-radius: 15px;
+    background: var(--dark-card-bg);
+    border: 1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    animation: fadeIn 0.8s ease-in-out;
+    position: relative;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+    .login-card.light-mode {
+        background: var(--light-card-bg);
+        border-color: rgba(0,0,0,0.1);
+    }
+
+/* -----------------------------------
+   Botón de alternar tema
+----------------------------------- */
+.theme-toggle {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: inherit;
+}
+
+/* -----------------------------------
+   Contenido del login
+----------------------------------- */
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 70px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.card-title {
+    color: var(--primary-blue);
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* -----------------------------------
+   Formulario
+----------------------------------- */
+.form-label {
+    color: var(--primary-blue);
+}
+
+.input-group-text {
+    background: transparent;
+    border: 1px solid #555;
+    border-right: none;
+    color: var(--primary-blue);
+}
+
+.login-card.light-mode .input-group-text {
+    border-color: #ccc;
+    color: var(--primary-blue);
+}
+
+.form-control {
+    background-color: var(--dark-input-bg);
+    border: 1px solid #555;
+    color: var(--dark-text);
+    transition: all 0.3s ease;
+}
+
+.login-card.light-mode .form-control {
+    background-color: var(--light-input-bg);
+    border-color: #ccc;
+    color: var(--light-text);
+}
+
+.form-control:focus {
+    background-color: #4c4c51;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 0.25rem rgba(0,91,149,0.25);
+    color: var(--dark-text);
+}
+
+.login-card.light-mode .form-control:focus {
+    background-color: #fff;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 0.25rem rgba(0,91,149,0.25);
+    color: var(--light-text);
+}
+
+/* -----------------------------------
+   Botón de envío
+----------------------------------- */
+.btn-success {
+    background-color: var(--primary-blue);
+    border-color: var(--primary-blue);
+    font-weight: 600;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+    .btn-success:hover {
+        background-color: rgba(0,91,149,0.8);
+        border-color: rgba(0,91,149,0.8);
+    }
+
+.login-card.light-mode .btn-success {
+    color: #fff;
+}
+
+/* -----------------------------------
+   Pie de tarjeta
+----------------------------------- */
+.login-footer {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+/* -----------------------------------
+   Animación de aparición
+----------------------------------- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* -----------------------------------
+   Responsive móvil
+----------------------------------- */
+@media (max-width: 576px) {
+    .login-card {
+        padding: 1.5rem;
+    }
+}

@@ -1,0 +1,372 @@
+﻿/* -----------------------------------
+   Variables de color (basadas en el logo SafeRisk)
+----------------------------------- */
+:root {
+    /* Azul principal (texto “SafeRisk”) */
+    --primary-blue: #007CBF;
+    /* Azul oscuro (sombras, degradados más profundos) */
+    --primary-dark: #004E8A;
+    /* Gris para el subtítulo “Técnicamente seguros” */
+    --tagline-gray: #6C6C6C;
+    /* Fondos claro/oscuro */
+    --light-bg: #f8f9fa;
+    --dark-bg: #1a1a1d;
+    /* Cartas */
+    --light-card-bg: rgba(255, 255, 255, 0.8);
+    --dark-card-bg: rgba(44, 44, 49, 0.4);
+    /* Textos */
+    --light-text: #333333;
+    --dark-text: #f1f1f1;
+    /* Tema activo (ajustable dinámicamente) */
+    --bg: var(--light-bg);
+    --text-color: var(--light-text);
+    /* Sombras de cartas */
+    --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    /* Flechas y puntos */
+    --arrow-bg: rgba(0, 124, 191, 0.6); /* primary-blue a 60% */
+    --arrow-hover-bg: rgba(0, 124, 191, 0.8);
+    --dot-bg: rgba(0, 124, 191, 0.2);
+}
+
+body.dark-mode {
+    --bg: var(--dark-bg);
+    --text-color: var(--dark-text);
+    --card-bg: var(--dark-card-bg);
+    --card-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    /* opcional: ajustar flechas/puntos en dark */
+}
+
+/* -----------------------------------
+   Aplicación de variables globales
+----------------------------------- */
+body {
+    /* Mantén tu flexbox y altura mínima */
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* --------- NUEVO: Limita el ancho y centra ----- */
+    width: 80%;
+    max-width: 1400px; /* o el ancho que prefieras */
+    margin: 0 auto;
+    padding: 2rem; /* opcional, da espacio en los bordes */
+    /* Colores y transición */
+    background-color: var(--bg);
+    color: var(--text-color);
+    transition: background 0.3s, color 0.3s;
+    /* Permite scroll si el contenido es más alto */
+    overflow: hidden;
+}
+
+/* -----------------------------------
+   Título "ABOUT"
+----------------------------------- */
+.about-title h1 {
+    font-size: 7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    white-space: nowrap;
+    font-family: "Arial Black", Arial, sans-serif;
+    background: linear-gradient( to bottom, rgba(0, 124, 191, 0.35) 30%, rgba(255, 255, 255, 0) 76% );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+body.dark-mode .about-title h1 {
+    background: linear-gradient( to bottom, #004E8A 30%, rgba(255, 255, 255, 0) 76% );
+}
+
+/* -----------------------------------
+   Contenedor carrusel
+----------------------------------- */
+.carousel-container {
+    width: 100%;
+    max-width: 1200px;
+    height: 450px;
+    position: relative;
+    perspective: 1000px;
+    margin-top: 80px;
+}
+
+.carousel-track {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+/* -----------------------------------
+   Tarjetas
+----------------------------------- */
+.card {
+    position: absolute;
+    width: 280px;
+    height: 380px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, all 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+    cursor: pointer;
+}
+
+    .card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    /* Posiciones */
+    .card.center {
+        z-index: 10;
+        transform: scale(1.1) translateZ(0);
+    }
+
+    .card.left-1 {
+        z-index: 5;
+        transform: translateX(-200px) scale(0.9) translateZ(-100px);
+        opacity: 0.9;
+    }
+
+    .card.left-2 {
+        z-index: 1;
+        transform: translateX(-400px) scale(0.8) translateZ(-300px);
+        opacity: 0.7;
+    }
+
+    .card.right-1 {
+        z-index: 5;
+        transform: translateX(200px) scale(0.9) translateZ(-100px);
+        opacity: 0.9;
+    }
+
+    .card.right-2 {
+        z-index: 1;
+        transform: translateX(400px) scale(0.8) translateZ(-300px);
+        opacity: 0.7;
+    }
+
+    .card.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+/* -----------------------------------
+   Overlay de información
+----------------------------------- */
+.card-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    color: #fff;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    pointer-events: none;
+}
+
+.card:hover .card-info {
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.card-info h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.card-info p {
+    margin: 0.25rem 0 0;
+    font-size: 0.9rem;
+    opacity: 0.85;
+}
+
+/* -----------------------------------
+   Información del módulo activo
+----------------------------------- */
+.member-info {
+    text-align: center;
+    margin-top: 40px;
+    transition: all 0.5s ease-out;
+}
+
+.member-name {
+    color: var(--primary-blue);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+    .member-name::before,
+    .member-name::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        width: 100px;
+        height: 2px;
+        background: var(--primary-blue);
+    }
+
+    .member-name::before {
+        left: -120px;
+    }
+
+    .member-name::after {
+        right: -120px;
+    }
+
+.member-role {
+    color: var(--tagline-gray);
+    font-size: 1.5rem;
+    font-weight: 500;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 10px 0;
+    margin-top: -15px;
+    transition: color 0.3s;
+}
+
+/* -----------------------------------
+   Dots de navegación
+----------------------------------- */
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 60px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--dot-bg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .dot.active {
+        background: var(--primary-blue);
+        transform: scale(1.2);
+    }
+
+/* -----------------------------------
+   Flechas
+----------------------------------- */
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--arrow-bg);
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+    border: none;
+    outline: none;
+}
+
+    .nav-arrow:hover {
+        background: var(--arrow-hover-bg);
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .nav-arrow.left {
+        left: 20px;
+        padding-right: 3px;
+    }
+
+    .nav-arrow.right {
+        right: 20px;
+        padding-left: 3px;
+    }
+
+/* -----------------------------------
+   Buscador en vivo
+----------------------------------- */
+.search-container {
+    margin: 1rem auto;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+}
+
+    .search-container input {
+        width: 100%;
+        padding: .5rem 1rem;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+    }
+
+/* -----------------------------------
+   Responsive móvil
+----------------------------------- */
+@media (max-width:768px) {
+    .about-title {
+        font-size: 4.5rem;
+    }
+
+    .card {
+        width: 200px;
+        height: 280px;
+    }
+
+    .member-name {
+        font-size: 2rem;
+    }
+
+    .member-role {
+        font-size: 1.2rem;
+    }
+
+    .member-name::before,
+    .member-name::after {
+        width: 50px;
+    }
+
+    .member-name::before {
+        left: -70px;
+    }
+
+    .member-name::after {
+        right: -70px;
+    }
+
+}
+
+#themeToggle {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    /* elimina cualquier right: x; si lo hubiera */
+}

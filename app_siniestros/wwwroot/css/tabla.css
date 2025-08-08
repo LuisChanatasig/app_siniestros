@@ -1,0 +1,51 @@
+﻿
+/* Tabla apilada (mobile-first) */
+@media (max-width: 575.98px) {
+    .table-stacked thead
+
+{
+    display: none;
+}
+
+.table-stacked tbody tr {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid var(--bs-border-color, #dee2e6);
+    border-radius: .5rem;
+    padding: .75rem;
+    background: var(--bs-body-bg);
+}
+
+.table-stacked tbody td {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    border: 0 !important;
+    padding: .35rem 0 !important;
+}
+
+    .table-stacked tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        min-width: 120px; /* etiqueta a la izquierda */
+        flex: 0 0 auto;
+    }
+    /* Primera celda funciona como título del ítem */
+    .table-stacked tbody td:first-child {
+        display: block;
+        font-weight: 600;
+        padding-top: 0 !important;
+        margin-bottom: .25rem;
+    }
+
+        .table-stacked tbody td:first-child::before {
+            content: "";
+            display: none;
+        }
+
+.table-stacked select.form-select,
+.table-stacked input.form-control {
+    width: 100%;
+}
+
+}
