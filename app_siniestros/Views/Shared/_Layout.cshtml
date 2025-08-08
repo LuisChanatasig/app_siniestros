@@ -95,35 +95,47 @@
           document.querySelectorAll('.logo-anim').forEach(el => el.classList.add('loaded'));
         });
     </script>
-    <script>
-        if ('serviceWorker' in navigator) {
-          window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/service-worker.js')
-              .catch(err => console.error('SW fail:', err));
-          });
-        }
+<script>
+  if ('serviceWorker' in navigator) {
+    const basePath = '@Url.Content("~/")'; // e.g. "/" o "/miapp/"
+    const swUrl = (basePath.endsWith('/') ? basePath : basePath + '/') + 'service-worker.js';
 
-        // Botón instalar opcional
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-          e.preventDefault();
-          deferredPrompt = e;
-          const btn = document.getElementById('btnInstall');
-          if (btn) btn.classList.remove('d-none');
-        });
+    window.addEventListener('load', async () => {
+      try {
+        // Pre-chequeo para detectar 404 antes de registrar
+        const r = await fetch(swUrl, { cache: 'no-cache' });
+        if (!r.ok) throw new Error('SW no encontrado: ' + r.status + ' ' + swUrl);
 
-        async function installPWA() {
-          if (!deferredPrompt) return;
-          deferredPrompt.prompt();
-          await deferredPrompt.userChoice;
-          deferredPrompt = null;
-          const btn = document.getElementById('btnInstall');
-          if (btn) btn.classList.add('d-none');
-        }
-    </script>
+        const reg = await navigator.serviceWorker.register(swUrl, { scope: basePath });
+        console.log('[SW] registrado:', reg.scope);
+      } catch (err) {
+        console.error('[SW] fail:', err);
+      }
+    });
+  }
+
+  // Botón instalar (igual que antes)
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const btn = document.getElementById('btnInstall');
+    if (btn) btn.classList.remove('d-none');
+  });
+
+  async function installPWA() {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    const btn = document.getElementById('btnInstall');
+    if (btn) btn.classList.add('d-none');
+  }
+</script>
+
     <script>
         (async () => {
-          const ASSETS = ['/', '/offline.html', '/css/site.css', '/js/site.js'];
+          const ASSETS = ['/', '/css/site.css', '/js/site.js'];
           for (const url of ASSETS) {
             try {
               const r = await fetch(url, { cache: 'no-cache' });
